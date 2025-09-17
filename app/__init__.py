@@ -19,7 +19,7 @@ def create_app():
         SECRET_KEY=os.environ.get('SECRET_KEY', 'dev-secret-key'),
         SQLALCHEMY_DATABASE_URI=os.environ.get(
             'DATABASE_URL', 
-            'mysql+pymysql://dbbio:dbbio123!@localhost/dbbio_d1b?charset=utf8mb4'
+            'sqlite:///dbbio.db'
         ),
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         SQLALCHEMY_ENGINE_OPTIONS={
