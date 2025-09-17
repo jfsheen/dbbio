@@ -2,12 +2,16 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
+from dotenv import load_dotenv
 
 # 创建扩展实例
 db = SQLAlchemy()
 migrate = Migrate()
 
 def create_app():
+
+    load_dotenv()
+
     app = Flask(__name__)
     
     # 配置应用
@@ -15,7 +19,7 @@ def create_app():
         SECRET_KEY=os.environ.get('SECRET_KEY', 'dev-secret-key'),
         SQLALCHEMY_DATABASE_URI=os.environ.get(
             'DATABASE_URL', 
-            'mysql+pymysql://dbbio:dbbio123!@localhost/dbbio_db?charset=utf8mb4'
+            'mysql+pymysql://dbbio:dbbio123!@localhost/dbbio_d1b?charset=utf8mb4'
         ),
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         SQLALCHEMY_ENGINE_OPTIONS={
