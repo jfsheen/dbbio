@@ -1,0 +1,306 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="scientific_name">{{ insect.chinese_name }}</h2>
+        <div>
+            <a href="{{ url_for('main.insect_edit', id=insect.id) }}" class="btn btn-warning">编辑</a>
+            <a href="{{ url_for('main.insect_index') }}" class="btn btn-secondary">返回列表</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>基本信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">序列号</th>
+                        <td>{{ insect.serial_number or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>类群</th>
+                        <td>{{ insect.leiqun or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>测序状态</th>
+                        <td>{{ insect.sequencing_status or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ insect.original_id or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>中名</th>
+                        <td>{{ insect.chinese_name or '未记录' }}</td>
+                    </tr>
+                </table>
+
+                <h4 class="mt-4">生物分类信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">门</th>
+                        <td>{{ insect.phylum or '未记录' }}{% if insect.phylum_name %} ({{ insect.phylum_name }}){% endif
+                            %}</td>
+                    </tr>
+                    <tr>
+                        <th>纲</th>
+                        <td>{{ insect.class_ or '未记录' }}{% if insect.class_name %} ({{ insect.class_name }}){% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>目</th>
+                        <td>{{ insect.order or '未记录' }}{% if insect.order_name %} ({{ insect.order_name }}){% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>科</th>
+                        <td>{{ insect.family_name or '未记录' }}{% if insect.chinese_family_name %} ({{
+                            insect.chinese_family_name }}){% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>属名</th>
+                        <td>{{ insect.genus_name or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>种本名</th>
+                        <td>{{ insect.species_name or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>种下名称</th>
+                        <td>{{ insect.infraspecies_name or '未记录' }}</td>
+                    </tr>
+                </table>
+                <h4 class="mt-4">保存信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">保存单位</th>
+                        <td>{{ insect.preservation_institution or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>单位代码</th>
+                        <td>{{ insect.institution_code or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>标本属性</th>
+                        <td>{{ insect.specimen_attribute or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>保藏方式</th>
+                        <td>{{ insect.preservation_method or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>实物状态</th>
+                        <td>{{ insect.physical_state or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>共享方式</th>
+                        <td>{{ insect.sharing_method or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>获取途径</th>
+                        <td>{{ insect.access_method or '未记录' }}</td>
+                    </tr>
+                </table>
+                <h4 class="mt-4">项目信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">项目名称</th>
+                        <td>{{ insect.project_name or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>项目编号</th>
+                        <td>{{ insect.project_code or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>上报时间</th>
+                        <td>{{ insect.report_date or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>取材点</th>
+                        <td>{{ insect.sampling_point or '未记录' }}</td>
+                    </tr>
+                </table>
+                <h4 class="mt-4">联系信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">联系人</th>
+                        <td>{{ insect.contact_person or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>单位地址</th>
+                        <td>{{ insect.institution_address or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>邮编</th>
+                        <td>{{ insect.postcode or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>电话</th>
+                        <td>{{ insect.phone or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ insect.email or '未记录' }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h4>采集与鉴定信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">采集人</th>
+                        <td>{{ insect.collector or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>采集时间</th>
+                        <td>{{ insect.collection_date or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>采集号</th>
+                        <td>{{ insect.collection_number or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>标本号</th>
+                        <td>{{ insect.specimen_number or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>鉴定人</th>
+                        <td>{{ insect.identifier or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>鉴定时间</th>
+                        <td>{{ insect.identification_date or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th width="150">国家</th>
+                        <td>{{ insect.country or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>省份</th>
+                        <td>{{ insect.province or '未记录' }}{% if insect.province_code %} ({{ insect.province_code }}){%
+                            endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>县</th>
+                        <td>{{ insect.county or '未记录' }}</td>
+                    </tr>
+                    <!-- 敏感信息区域 - 仅管理员可见 -->
+                    {% if session.get('is_admin') %}
+                    <tr class="sensitive-info" style="display: none;">
+                        <th>具体地点</th>
+                        <td>{{ insect.locality or '未记录' }}</td>
+                    </tr>
+                    <tr class="sensitive-info" style="display: none;">
+                        <th>经度</th>
+                        <td>{{ insect.longitude or '未记录' }}</td>
+                    </tr>
+                    <tr class="sensitive-info" style="display: none;">
+                        <th>纬度</th>
+                        <td>{{ insect.latitude or '未记录' }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th>海拔</th>
+                        <td>{% if insect.altitude %}{{ insect.altitude }} 米{% else %}未记录{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th width="150">生境</th>
+                        <td>{{ insect.habitat or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>寄主</th>
+                        <td>{{ insect.host or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>描述</th>
+                        <td>{{ insect.description or '未记录' }}</td>
+                    </tr>
+                </table>
+                <h4>基因与测序信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">基因编号</th>
+                        <td>{{ insect.gene_code or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>基因名称</th>
+                        <td>{{ insect.gene_name or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>基因描述</th>
+                        <td>{{ insect.gene_description or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>基因别名</th>
+                        <td>{{ insect.gene_alias or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>测序时间</th>
+                        <td>{{ insect.sequencing_date or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>测序人</th>
+                        <td>{{ insect.sequencer or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>课题代码</th>
+                        <td>{{ insect.project_task_code or '未记录' }}</td>
+                    </tr>
+                </table>
+                <h4>其他信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">资源编码</th>
+                        <td>{{ insect.resource_code or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>图像</th>
+                        <td>
+                            {% if insect.image_url %}
+                            {% for url in insect.image_url.split('|') %}
+                            <a href="{{ url }}" target="_blank">图像{{ loop.index }}</a>{% if not loop.last %}, {% endif
+                            %}
+                            {% endfor %}
+                            {% else %}
+                            未记录
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>记录地址</th>
+                        <td>
+                            {% if insect.record_url %}
+                            <a href="{{ insect.record_url }}" target="_blank">查看记录</a>
+                            {% else %}
+                            未记录
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Cite1</th>
+                        <td>{{ insect.citation1 or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cite2</th>
+                        <td>{{ insect.citation2 or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>文献</th>
+                        <td>{{ insect.literature or '未记录' }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% if session.get('is_admin') %}
+        <div class="mt-3">
+            <button id="toggle-sensitive-info" class="btn btn-sm btn-outline-secondary">
+                显示/隐藏敏感信息
+            </button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

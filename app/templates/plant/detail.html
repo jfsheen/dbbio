@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="scientific_name">{{ plant.scientific_name }}</h2>
+        <div>
+            <a href="{{ url_for('main.plant_edit', id=plant.id) }}" class="btn btn-primary">编辑</a>
+            <a href="{{ url_for('main.plant_index') }}" class="btn btn-secondary">返回列表</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>分类信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">分类</th>
+                        <td>{{ plant.classification or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>界</th>
+                        <td>{{ plant.kingdom or '未记录' }}{% if plant.chinese_kingdom_name %} ({{ plant.chinese_kingdom_name }}){% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>科</th>
+                        <td>{{ plant.family or '未记录' }}{% if plant.chinese_family_name %} ({{ plant.chinese_family_name }}){% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>属</th>
+                        <td>{{ plant.genus or '未记录' }}{% if plant.chinese_genus_name %} ({{ plant.chinese_genus_name }}){% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>学名</th>
+                        <td class="scientific_name">{{ plant.scientific_name or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>中文名</th>
+                        <td>{{ plant.vernacular_name or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>鉴定ID</th>
+                        <td>{{ plant.identification_id or '未记录' }}</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="col-md-6">
+                <h4>采集信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">采集人</th>
+                        <td>{{ plant.recorded_by or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>采集号</th>
+                        <td>{{ plant.record_number or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>采集日期</th>
+                        <td>{{ plant.event_date or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>鉴定人</th>
+                        <td>{{ plant.identified_by or '未记录' }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h4>地理位置</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">国家</th>
+                        <td>{{ plant.country or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>省/州</th>
+                        <td>{{ plant.state_province or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>城市</th>
+                        <td>{{ plant.city or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>县</th>
+                        <td>{{ plant.county or '未记录' }}</td>
+                    </tr>
+                    <!-- 隐藏具体地点、经度和纬度信息 -->
+                    <tr class="sensitive-info" style="display: none;">
+                        <th>具体地点</th>
+                        <td>{{ plant.locality or '未记录' }}</td>
+                    </tr>
+                    <tr class="sensitive-info" style="display: none;">
+                        <th>纬度</th>
+                        <td>{{ plant.decimal_latitude or '未记录' }}</td>
+                    </tr>
+                    <tr class="sensitive-info" style="display: none;">
+                        <th>经度</th>
+                        <td>{{ plant.decimal_longitude or '未记录' }}</td>
+                    </tr>
+                </table>
+                
+                <!-- 添加权限控制按钮 -->
+                {% if session.get('is_admin') %}
+                <button id="toggle-sensitive-info" class="btn btn-sm btn-outline-secondary mt-2">
+                    显示/隐藏敏感信息
+                </button>
+                {% endif %}
+            </div>
+            
+            <div class="col-md-6">
+                <h4>环境信息</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="150">最低海拔</th>
+                        <td>{% if plant.minimum_elevation_in_meters %}{{ plant.minimum_elevation_in_meters }} 米{% else %}未记录{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>栖息地</th>
+                        <td>{{ plant.habitat or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>习性</th>
+                        <td>{{ plant.habit or '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>创建时间</th>
+                        <td>{{ plant.created_at.strftime('%Y-%m-%d %H:%M:%S') if plant.created_at else '未记录' }}</td>
+                    </tr>
+                    <tr>
+                        <th>更新时间</th>
+                        <td>{{ plant.updated_at.strftime('%Y-%m-%d %H:%M:%S') if plant.updated_at else '未记录' }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

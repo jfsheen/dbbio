@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>编辑昆虫记录</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('main.insect_edit', id=insect.id) }}" novalidate>
+                    <ul class="nav nav-tabs" id="insectTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">基本信息</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="classification-tab" data-bs-toggle="tab" data-bs-target="#classification" type="button" role="tab" aria-controls="classification" aria-selected="false">生物分类信息</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="collection-tab" data-bs-toggle="tab" data-bs-target="#collection" type="button" role="tab" aria-controls="collection" aria-selected="false">采集鉴定信息</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="location-tab" data-bs-toggle="tab" data-bs-target="#location" type="button" role="tab" aria-controls="location" aria-selected="false">保存信息</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="gene-tab" data-bs-toggle="tab" data-bs-target="#gene" type="button" role="tab" aria-controls="gene" aria-selected="false">基因与测序信息</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="other-tab" data-bs-toggle="tab" data-bs-target="#other" type="button" role="tab" aria-controls="other" aria-selected="false">其他信息</button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content p-3" id="insectTabsContent">
+                        <!-- 基本信息选项卡 -->
+                        <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="original_id" class="form-label">ID</label>
+                                        <input type="text" class="form-control" id="original_id" name="original_id" value="{{ insect.original_id or '' }}">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="leiqun" class="form-label">类群</label>
+                                        <input type="text" class="form-control" id="leiqun" name="leiqun" value="{{ insect.leiqun or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="sequencing_status" class="form-label">测序状态</label>
+                                        <input type="text" class="form-control" id="sequencing_status" name="sequencing_status" value="{{ insect.sequencing_status or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="serial_number" class="form-label">序列号</label>
+                                        <input type="text" class="form-control" id="serial_number" name="serial_number" value="{{ insect.serial_number or '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="chinese_name" class="form-label">中名</label>
+                                <input type="text" class="form-control" id="chinese_name" name="chinese_name" value="{{ insect.chinese_name or '' }}" required>
+                            </div>
+                        </div>
+                        
+                        <!-- 分类信息选项卡 -->
+                        <div class="tab-pane fade" id="classification" role="tabpanel" aria-labelledby="classification-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="phylum" class="form-label">门</label>
+                                        <input type="text" class="form-control" id="phylum" name="phylum" value="{{ insect.phylum or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phylum_name" class="form-label">门名称</label>
+                                        <input type="text" class="form-control" id="phylum_name" name="phylum_name" value="{{ insect.phylum_name or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="class_" class="form-label">纲</label>
+                                        <input type="text" class="form-control" id="class_" name="class_" value="{{ insect.class_ or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="class_name" class="form-label">纲名称</label>
+                                        <input type="text" class="form-control" id="class_name" name="class_name" value="{{ insect.class_name or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="order" class="form-label">目</label>
+                                        <input type="text" class="form-control" id="order" name="order" value="{{ insect.order or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="order_name" class="form-label">目名称</label>
+                                        <input type="text" class="form-control" id="order_name" name="order_name" value="{{ insect.order_name or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="family_name" class="form-label">科名称</label>
+                                        <input type="text" class="form-control" id="family_name" name="family_name" value="{{ insect.family_name or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="chinese_family_name" class="form-label">中文科名</label>
+                                        <input type="text" class="form-control" id="chinese_family_name" name="chinese_family_name" value="{{ insect.chinese_family_name or '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="genus_name" class="form-label">属名</label>
+                                        <input type="text" class="form-control" id="genus_name" name="genus_name" value="{{ insect.genus_name or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="species_name" class="form-label">种本名</label>
+                                        <input type="text" class="form-control" id="species_name" name="species_name" value="{{ insect.species_name or '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="infraspecies_name" class="form-label">种下名称</label>
+                                <input type="text" class="form-control" id="infraspecies_name" name="infraspecies_name" value="{{ insect.infraspecies_name or '' }}">
+                            </div>
+                        </div>
+                        
+                        <!-- 采集信息选项卡 -->
+                        <div class="tab-pane fade" id="collection" role="tabpanel" aria-labelledby="collection-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="collector" class="form-label">采集人</label>
+                                        <input type="text" class="form-control" id="collector" name="collector" value="{{ insect.collector or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="collection_date" class="form-label">采集时间</label>
+                                        <input type="date" class="form-control" id="collection_date" name="collection_date" value="{{ insect.collection_date or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="collection_number" class="form-label">采集号</label>
+                                        <input type="text" class="form-control" id="collection_number" name="collection_number" value="{{ insect.collection_number or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="specimen_number" class="form-label">标本号</label>
+                                        <input type="text" class="form-control" id="specimen_number" name="specimen_number" value="{{ insect.specimen_number or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="identifier" class="form-label">鉴定人</label>
+                                        <input type="text" class="form-control" id="identifier" name="identifier" value="{{ insect.identifier or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="identification_date" class="form-label">鉴定时间</label>
+                                        <input type="date" class="form-control" id="identification_date" name="identification_date" value="{{ insect.identification_date or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="country" class="form-label">国家</label>
+                                        <input type="text" class="form-control" id="country" name="country" value="{{ insect.country or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="province" class="form-label">省份</label>
+                                        <input type="text" class="form-control" id="province" name="province" value="{{ insect.province or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="city" class="form-label">城市</label>
+                                        <input type="text" class="form-control" id="city" name="city" value="{{ insect.city or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="county" class="form-label">县区</label>
+                                        <input type="text" class="form-control" id="county" name="county" value="{{ insect.county or '' }}">
+                                    </div>
+                                    <!-- 敏感信息区域 - 仅管理员可见 -->
+                                    {% if session.get('is_admin') %}
+                                    <div class="admin-only sensitive-info">
+                                        <div class="alert alert-warning">
+                                            <strong>管理员区域：</strong> 以下为敏感信息，请谨慎编辑。
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="locality" class="form-label">具体地点</label>
+                                            <textarea class="form-control" id="locality" name="locality" rows="2">{{ insect.locality or '' }}</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="latitude" class="form-label">纬度</label>
+                                            <input type="number" step="any" class="form-control" id="latitude" name="latitude" value="{{ insect.latitude or '' }}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="longitude" class="form-label">经度</label>
+                                            <input type="number" step="any" class="form-control" id="longitude" name="longitude" value="{{ insect.longitude or '' }}">
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <!-- 对非管理员用户，使用隐藏字段保留原始值 -->
+                                    <input type="hidden" name="locality" value="{{ insect.locality or '' }}">
+                                    <input type="hidden" name="latitude" value="{{ insect.latitude or '' }}">
+                                    <input type="hidden" name="longitude" value="{{ insect.longitude or '' }}">
+                                    {% endif %}
+                                    <div class="mb-3">
+                                        <label for="altitude" class="form-label">海拔（米）</label>
+                                        <input type="number" class="form-control" id="altitude" name="altitude" value="{{ insect.altitude or '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 保存选项卡 -->
+                        <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="preservation_institution" class="form-label">保存单位</label>
+                                        <input type="text" class="form-control" id="preservation_institution" name="preservation_institution" value="{{ insect.preservation_institution or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="institution_code" class="form-label">单位代码</label>
+                                        <input type="text" class="form-control" id="institution_code" name="institution_code" value="{{ insect.institution_code or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="specimen_attribute" class="form-label">标本属性</label>
+                                        <input type="text" class="form-control" id="specimen_attribute" name="specimen_attribute" value="{{ insect.specimen_attribute or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="preservation_method" class="form-label">保藏方式</label>
+                                        <input type="text" class="form-control" id="preservation_method" name="preservation_method" value="{{ insect.preservation_method or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="physical_state" class="form-label">实物状态</label>
+                                        <input type="text" class="form-control" id="physical_state" name="physical_state" value="{{ insect.physical_state or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="sharing_method" class="form-label">共享方式</label>
+                                        <input type="text" class="form-control" id="sharing_method" name="sharing_method" value="{{ insect.sharing_method or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="access_method" class="form-label">获取途径</label>
+                                        <input type="text" class="form-control" id="access_method" name="access_method" value="{{ insect.access_method or '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 基因信息选项卡 -->
+                        <div class="tab-pane fade" id="gene" role="tabpanel" aria-labelledby="gene-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="gene_sequence" class="form-label">基因序列</label>
+                                        <textarea class="form-control" id="gene_sequence" name="gene_sequence" rows="4">{{ insect.gene_sequence or '' }}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="gene_type" class="form-label">基因类型</label>
+                                        <input type="text" class="form-control" id="gene_type" name="gene_type" value="{{ insect.gene_type or '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="sequence_length" class="form-label">序列长度</label>
+                                        <input type="number" class="form-control" id="sequence_length" name="sequence_length" value="{{ insect.sequence_length or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="genbank_accession" class="form-label">GenBank登录号</label>
+                                        <input type="text" class="form-control" id="genbank_accession" name="genbank_accession" value="{{ insect.genbank_accession or '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="sequencing_method" class="form-label">测序方法</label>
+                                        <input type="text" class="form-control" id="sequencing_method" name="sequencing_method" value="{{ insect.sequencing_method or '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 其他信息选项卡 -->
+                        <div class="tab-pane fade" id="other" role="tabpanel" aria-labelledby="other-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="habitat" class="form-label">生境</label>
+                                        <textarea class="form-control" id="habitat" name="habitat" rows="3">{{ insect.habitat or '' }}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="morphological_features" class="form-label">形态特征</label>
+                                        <textarea class="form-control" id="morphological_features" name="morphological_features" rows="3">{{ insect.morphological_features or '' }}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ecological_role" class="form-label">生态作用</label>
+                                        <textarea class="form-control" id="ecological_role" name="ecological_role" rows="3">{{ insect.ecological_role or '' }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="conservation_status" class="form-label">保护状态</label>
+                                        <select class="form-select" id="conservation_status" name="conservation_status">
+                                            <option value="">请选择</option>
+                                            <option value="无危" {% if insect.conservation_status == '无危' %}selected{% endif %}>无危</option>
+                                            <option value="近危" {% if insect.conservation_status == '近危' %}selected{% endif %}>近危</option>
+                                            <option value="易危" {% if insect.conservation_status == '易危' %}selected{% endif %}>易危</option>
+                                            <option value="濒危" {% if insect.conservation_status == '濒危' %}selected{% endif %}>濒危</option>
+                                            <option value="极危" {% if insect.conservation_status == '极危' %}selected{% endif %}>极危</option>
+                                            <option value="野外灭绝" {% if insect.conservation_status == '野外灭绝' %}selected{% endif %}>野外灭绝</option>
+                                            <option value="数据缺乏" {% if insect.conservation_status == '数据缺乏' %}selected{% endif %}>数据缺乏</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="remarks" class="form-label">备注</label>
+                                        <textarea class="form-control" id="remarks" name="remarks" rows="4">{{ insect.remarks or '' }}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="image_url" class="form-label">图片链接</label>
+                                        <input type="url" class="form-control" id="image_url" name="image_url" value="{{ insect.image_url or '' }}" placeholder="https://example.com/image.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-warning">保存</button>
+                        <a href="{{ url_for('main.insect_detail', id=insect.id) }}" class="btn btn-secondary">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+// 选项卡功能
+document.addEventListener('DOMContentLoaded', function() {
+    const triggerTabList = [].slice.call(document.querySelectorAll('#insectTabs button'))
+    triggerTabList.forEach(function (triggerEl) {
+        new bootstrap.Tab(triggerEl)
+    })
+});
+</script>
+{% endblock %}
+{% endblock %}

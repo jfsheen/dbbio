@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h2>添加植物记录</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('main.plant_add') }}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>分类信息</h4>
+                            <div class="mb-3">
+                                <label for="classification" class="form-label">分类</label>
+                                <input type="text" class="form-control" id="classification" name="classification">
+                            </div>
+                            <div class="mb-3">
+                                <label for="kingdom" class="form-label">界</label>
+                                <input type="text" class="form-control" id="kingdom" name="kingdom">
+                            </div>
+                            <div class="mb-3">
+                                <label for="chinese_kingdom_name" class="form-label">中文界名</label>
+                                <input type="text" class="form-control" id="chinese_kingdom_name" name="chinese_kingdom_name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="family" class="form-label">科</label>
+                                <input type="text" class="form-control" id="family" name="family">
+                            </div>
+                            <div class="mb-3">
+                                <label for="chinese_family_name" class="form-label">中文科名</label>
+                                <input type="text" class="form-control" id="chinese_family_name" name="chinese_family_name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="genus" class="form-label">属</label>
+                                <input type="text" class="form-control" id="genus" name="genus">
+                            </div>
+                            <div class="mb-3">
+                                <label for="chinese_genus_name" class="form-label">中文属名</label>
+                                <input type="text" class="form-control" id="chinese_genus_name" name="chinese_genus_name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="scientific_name" class="form-label">学名</label>
+                                <input type="text" class="form-control" id="scientific_name" name="scientific_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="vernacular_name" class="form-label">中文名</label>
+                                <input type="text" class="form-control" id="vernacular_name" name="vernacular_name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="identification_id" class="form-label">鉴定ID</label>
+                                <input type="text" class="form-control" id="identification_id" name="identification_id">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h4>采集信息</h4>
+                            <div class="mb-3">
+                                <label for="recorded_by" class="form-label">采集人</label>
+                                <input type="text" class="form-control" id="recorded_by" name="recorded_by">
+                            </div>
+                            <div class="mb-3">
+                                <label for="record_number" class="form-label">采集号</label>
+                                <input type="text" class="form-control" id="record_number" name="record_number">
+                            </div>
+                            <div class="mb-3">
+                                <label for="event_date" class="form-label">采集日期</label>
+                                <input type="date" class="form-control" id="event_date" name="event_date">
+                            </div>
+                            <div class="mb-3">
+                                <label for="identified_by" class="form-label">鉴定人</label>
+                                <input type="text" class="form-control" id="identified_by" name="identified_by">
+                            </div>
+                            
+                            <h4 class="mt-4">地理位置</h4>
+                            <div class="mb-3">
+                                <label for="country" class="form-label">国家</label>
+                                <input type="text" class="form-control" id="country" name="country">
+                            </div>
+                            <div class="mb-3">
+                                <label for="state_province" class="form-label">省/州</label>
+                                <input type="text" class="form-control" id="state_province" name="state_province">
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">城市</label>
+                                <input type="text" class="form-control" id="city" name="city">
+                            </div>
+                            <div class="mb-3">
+                                <label for="county" class="form-label">县</label>
+                                <input type="text" class="form-control" id="county" name="county">
+                            </div>
+                            <div class="mb-3">
+                                <label for="locality" class="form-label">具体地点</label>
+                                <textarea class="form-control" id="locality" name="locality" rows="2"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="decimal_latitude" class="form-label">纬度</label>
+                                <input type="number" step="any" class="form-control" id="decimal_latitude" name="decimal_latitude">
+                            </div>
+                            <div class="mb-3">
+                                <label for="decimal_longitude" class="form-label">经度</label>
+                                <input type="number" step="any" class="form-control" id="decimal_longitude" name="decimal_longitude">
+                            </div>
+                            
+                            <h4 class="mt-4">环境信息</h4>
+                            <div class="mb-3">
+                                <label for="minimum_elevation_in_meters" class="form-label">最低海拔(米)</label>
+                                <input type="number" step="any" class="form-control" id="minimum_elevation_in_meters" name="minimum_elevation_in_meters">
+                            </div>
+                            <div class="mb-3">
+                                <label for="habitat" class="form-label">栖息地</label>
+                                <textarea class="form-control" id="habitat" name="habitat" rows="2"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="habit" class="form-label">习性</label>
+                                <input type="text" class="form-control" id="habit" name="habit">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                        <a href="{{ url_for('main.plant_index') }}" class="btn btn-secondary">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

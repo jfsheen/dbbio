@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <!-- 添加记录按钮卡片 -->
+        {% if session.get('is_admin') %}
+        <div class="card mb-3">
+            <div class="card-body text-center">
+                <a href="{{ url_for('main.insect_add') }}" class="btn btn-warning w-100">
+                    <i class="bi bi-plus-circle"></i> 添加动物记录
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        <!-- 筛选条件卡片 -->
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-funnel"></i> 筛选条件
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="get" action="{{ url_for('main.insect_index') }}" id="filter-form">
+                    <!-- 关键词搜索 -->
+                    <div class="mb-3">
+                        <label for="q" class="form-label">关键词搜索</label>
+                        <input type="text" class="form-control" id="q" name="q" value="{{ search_query }}"
+                            placeholder="输入中名、学名或科名...">
+                    </div>
+
+                    <!-- 科筛选 -->
+                    <div class="mb-3">
+                        <label for="family" class="form-label">科</label>
+                        <select class="form-select" id="family" name="family">
+                            <option value="">全部科</option>
+                            {% for family in families %}
+                            <option value="{{ family }}" {% if family_filter==family %}selected{% endif %}>
+                                {{ family }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- 省份筛选 -->
+                    <div class="mb-3">
+                        <label for="province" class="form-label">省份</label>
+                        <select class="form-select" id="province" name="province">
+                            <option value="">全部省份</option>
+                            {% for province in provinces %}
+                            <option value="{{ province }}" {% if province_filter==province %}selected{% endif %}>
+                                {{ province }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- 采集时间范围筛选 -->
+                    <div class="mb-3">
+                        <label class="form-label">采集时间范围</label>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                            <input type="date" class="form-control" id="collection_date_start"
+                                name="collection_date_start"
+                                value="{{ request.args.get('collection_date_start', '') }}">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">至</span>
+                            <input type="date" class="form-control" id="collection_date_end" name="collection_date_end"
+                                value="{{ request.args.get('collection_date_end', '') }}">
+                        </div>
+                    </div>
+
+                    <!-- 按钮组 -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-filter"></i> 应用筛选
+                        </button>
+                        <a href="{{ url_for('main.insect_index') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-repeat"></i> 重置筛选
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 快捷统计卡片 -->
+        <div class="card mt-3">
+            <div class="card-header bg-light">
+                <h6 class="card-title mb-0">
+                    <i class="bi bi-bar-chart"></i> 统计信息
+                </h6>
+            </div>
+            <div class="card-body py-2">
+                <div class="d-flex justify-content-between small">
+                    <span>总记录数:</span>
+                    <span class="fw-bold">{{ total_count }}</span>
+                </div>
+                <div class="d-flex justify-content-between small">
+                    <span>科数量:</span>
+                    <span class="fw-bold">{{ families|length }}</span>
+                </div>
+                <div class="d-flex justify-content-between small">
+                    <span>省份数量:</span>
+                    <span class="fw-bold">{{ provinces|length }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>动物资源列表</h2>
+            <span class="badge bg-warning">共 {{ insects.total }} 条记录</span>
+        </div>
+
+        {% if insects.items %}
+        <div class="list-group">
+            {% for insect in insects.items %}
+            <div class="list-group-item py-1 px-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-truncate" style="max-width: 70%;">
+                        <strong>{{ insect.chinese_name }}</strong>
+                        <small class="text-muted">({{ insect.family_name }})</small>
+                        <br>
+                        <small>
+                            {% if insect.species_name %}<i>{{ insect.genus_name }} {{ insect.species_name }}</i>{% endif
+                            %}
+                            {% if insect.country %} · {{ insect.country }}{% endif %}
+                            {% if insect.province %}/{{ insect.province }}{% endif %}
+                            {% if insect.collection_date %}/{{ insect.collection_date }}{% endif %}
+                        </small>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                        <a href="{{ url_for('main.insect_detail', id=insect.id) }}"
+                            class="btn btn-outline-primary btn-sm">详情</a>
+                        <a href="{{ url_for('main.insect_edit', id=insect.id) }}"
+                            class="btn btn-outline-secondary btn-sm">编辑</a>
+                        {% if session.get('is_admin') %}
+                        <form method="post" action="{{ url_for('main.insect_delete', id=insect.id) }}" class="d-inline">
+                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                onclick="return confirm('确定要删除这条记录吗？')">删</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- 分页控件 -->
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if insects.has_prev %}
+                <li class="page-item">
+                    <a class="page-link"
+                        href="{{ url_for('main.insect_index', page=insects.prev_num, q=search_query, family=family_filter, province=province_filter) }}">上一页</a>
+                </li>
+                {% endif %}
+
+                {% for page_num in insects.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
+                {% if page_num %}
+                <li class="page-item {% if insects.page == page_num %}active{% endif %}">
+                    <a class="page-link"
+                        href="{{ url_for('main.insect_index', page=page_num, q=search_query, family=family_filter, province=province_filter) }}">{{
+                        page_num }}</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if insects.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                        href="{{ url_for('main.insect_index', page=insects.next_num, q=search_query, family=family_filter, province=province_filter) }}">下一页</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% else %}
+        <div class="alert alert-info">没有找到符合条件的昆虫资源</div>
+        {% endif %}
+    </div>
+</div>
+{% block scripts %}
+<script>
+    // 筛选表单增强功能
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterForm = document.getElementById('filter-form');
+        const resetButton = document.querySelector('a[href="{{ url_for("main.insect_index") }}"]');
+
+        // 重置按钮点击事件
+        if (resetButton) {
+            resetButton.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // 清空所有表单字段
+                const inputs = filterForm.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    if (input.type !== 'submit') {
+                        input.value = '';
+                    }
+                });
+
+                // 提交表单
+                filterForm.submit();
+            });
+        }
+
+        // 日期范围验证
+        const startDateInput = document.getElementById('collection_date_start');
+        const endDateInput = document.getElementById('collection_date_end');
+
+        if (startDateInput && endDateInput) {
+            startDateInput.addEventListener('change', function () {
+                if (endDateInput.value && this.value > endDateInput.value) {
+                    alert('开始日期不能晚于结束日期');
+                    this.value = '';
+                }
+            });
+
+            endDateInput.addEventListener('change', function () {
+                if (startDateInput.value && this.value < startDateInput.value) {
+                    alert('结束日期不能早于开始日期');
+                    this.value = '';
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}

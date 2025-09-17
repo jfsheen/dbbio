@@ -1,0 +1,363 @@
+/* 自定义颜色变量 */
+:root {
+    --primary-green: #2e7d32;
+    --light-green: #4caf50;
+    --lighter-green: #e8f5e9;
+    --dark-green: #1b5e20;
+    --accent-color: #ff5722;
+    --text-dark: #212121;
+    --text-light: #757575;
+    --divider-color: #bdbdbd;
+    --background-light: #f5f5f5;
+}
+
+/* 全局样式 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* 导航栏样式 */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.bg-success {
+    background-color: var(--primary-green) !important;
+}
+
+/* 卡片样式 */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 2px solid var(--light-green);
+    font-weight: 600;
+}
+
+/* 按钮样式 */
+.btn-primary {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-green);
+    border-color: var(--dark-green);
+}
+
+.btn-outline-primary {
+    color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+/* 表格样式 */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.table th {
+    background-color: var(--lighter-green);
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 12px 15px;
+}
+
+.table td {
+    padding: 10px 15px;
+    vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+/* 筛选侧边栏样式 */
+.filter-sidebar .card {
+    position: sticky;
+    top: 20px;
+}
+
+.filter-sidebar .form-label {
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.filter-sidebar .form-control,
+.filter-sidebar .form-select {
+    border: 1px solid var(--divider-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+/* 列表项样式 */
+.list-group-item {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* 分页样式 */
+.pagination {
+    margin: 20px 0;
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.page-link {
+    color: var(--primary-green);
+}
+
+.page-link:hover {
+    color: var(--dark-green);
+}
+
+/* 详情页样式 */
+.detail-table th {
+    width: 150px;
+    background-color: #f8f9fa;
+}
+
+/* 表单样式 */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--light-green);
+    box-shadow: 0 0 0 0.25rem rgba(46, 125, 50, 0.25);
+}
+/* 表单样式 */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.card {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* 按钮样式 */
+.btn {
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* 敏感信息样式 */
+.sensitive-info {
+    background-color: #fff3cd;
+}
+
+.admin-only {
+    border-left: 4px solid #dc3545;
+    padding-left: 10px;
+}
+
+/* 管理员警告框 */
+.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .form-control, .form-select {
+        padding: 0.75rem;
+    }
+}
+
+/* 消息提示样式 */
+.alert {
+    border-radius: 0.375rem;
+    border: none;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* 徽章样式 */
+.badge {
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 12px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .filter-sidebar .card {
+        position: static;
+        margin-bottom: 20px;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .btn-group-sm > .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* 植物特色样式 */
+.plant-habitats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.habitat-badge {
+    background-color: var(--lighter-green);
+    color: var(--dark-green);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* 昆虫资源特定样式 */
+.insect-card {
+    border-left: 4px solid #ffc107;
+}
+
+.btn-insect {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+.btn-insect:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+    color: #000;
+}
+/* 侧边栏卡片样式 */
+.sidebar-card {
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sidebar-card .card-header {
+    padding: 0.75rem 1rem;
+}
+
+.sidebar-card .card-body {
+    padding: 1rem;
+}
+
+/* 统计信息样式 */
+.stats-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0.25rem 0;
+}
+
+.stats-item:last-child {
+    border-bottom: none;
+}
+
+/* 表单控件样式 */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+}
+/* 地图容器样式（预留） */
+.map-container {
+    height: 300px;
+    background-color: #eef6ee;
+    border-radius: 8px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+}
+
+/* 加载动画 */
+.loading-spinner {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
