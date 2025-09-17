@@ -19,7 +19,7 @@ RUN mkdir -p /app/app/static /app/app/templates
 # 暴露端口
 EXPOSE 5000
 
-CMD ["python"， "app.py"]
+# CMD ["python"， "app.py"]
 
 # 生产环境使用 gunicorn，指向正确的应用实例
-# CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
