@@ -8,8 +8,8 @@ ENV/
 *.sqlite3
 
 # Environment variables
-.env
-.flaskenv
+# .env
+# .flaskenv
 
 # Python cache
 __pycache__/
