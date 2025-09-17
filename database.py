@@ -35,7 +35,7 @@ def init_db():
             add_sample_plant_data()
         
         # 从 CSV 文件导入数据
-        insects_csv_file_path = os.path.join(os.path.dirname(__file__), 'total_samples.csv')
+        insects_csv_file_path = os.path.join(os.path.dirname(__file__), 'insects.csv')
         
         if not os.path.exists(insects_csv_file_path):
             print(f"CSV文件不存在: {insects_csv_file_path}")
@@ -45,9 +45,9 @@ def init_db():
         
         try:
             import_insects_data_from_csv(insects_csv_file_path)
-            print("昆虫数据导入成功")
+            print("动物数据导入成功")
         except Exception as e:
-            print(f"昆虫导入数据时出错: {str(e)}")
+            print(f"动物导入数据时出错: {str(e)}")
             # 出错时添加示例数据
             add_sample_insect_data()
 
