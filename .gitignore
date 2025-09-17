@@ -7,6 +7,7 @@ ENV/
 *.db
 *.sqlite3
 
+instance/
 # Environment variables
 # .env
 # .flaskenv
